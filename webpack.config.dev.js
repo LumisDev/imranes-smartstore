@@ -33,7 +33,14 @@ module.exports = {
                         loader: 'file-loader',
                     },
                 ]
-            }
+            },
+            {
+                // required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4
+                test: /node_modules\/svelte\/.*\.mjs$/,
+                resolve: {
+                  fullySpecified: false
+                }
+              }
     ]},
     mode: 'development',
     devtool: 'eval-source-map',
