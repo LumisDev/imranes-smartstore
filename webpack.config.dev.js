@@ -1,10 +1,11 @@
 const webpack = require('webpack')
+const path = require('path')
 
 /** @type {webpack.Configuration} */
 module.exports = {
     entry: './src/index.js',
     output: {
-        path: __dirname + '/dist',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
     module: {
@@ -43,5 +44,14 @@ module.exports = {
             module: true,
             columns: false
         }),
-    ]
+    ],
+    resolve: {
+        // see below for an explanation
+        alias: {
+          svelte: path.resolve('node_modules', 'svelte/src/runtime') // Svelte 3: path.resolve('node_modules', 'svelte')
+        },
+        extensions: ['.mjs', '.js', '.svelte'],
+        mainFields: ['svelte', 'browser', 'module', 'main'],
+        conditionNames: ['svelte', 'browser', 'import']
+      },
 }
